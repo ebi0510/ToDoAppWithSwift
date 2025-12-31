@@ -8,8 +8,35 @@
 import SwiftUI
 
 struct TaskCreateView: View {
+    @State private var text = ""
+    @State private var date = Date()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 20){
+            Text("タスク内容")
+                .font(.title.bold())
+            TextField("詳細", text: $text)
+                .frame(height: 40)
+                .border(.gray)
+                .cornerRadius(5)
+            DatePicker(
+                "期限",
+                selection: $date,
+                displayedComponents: .date
+            ).environment(\.locale, Locale(identifier: "ja_JP"))
+        }
+        .padding(30)
+        .frame(width: 300)
+        .border(.blue)
+        .cornerRadius(10)
+        Button("作成") {
+            
+        }
+        .frame(width: 100, height: 30)
+        .background(.blue)
+        .foregroundColor(.white)
+        .cornerRadius(50)
+        .padding(10)
     }
 }
 

@@ -10,7 +10,12 @@ import SwiftUI
 struct ContentView: View {
     @State private var isPresented = false
     @State private var text = ""
-
+    @State private var tasks = [
+        (title: "タスク1", data: "2025/11/22", checked: false),
+        (title: "タスク2", data: "2025/3/22", checked: false),
+        (title: "タスク3", data: "2025/5/22", checked: false)
+    ]
+    
     var body: some View {
         VStack {
             Button {
@@ -25,12 +30,24 @@ struct ContentView: View {
                 TextField("タスク内容", text: $text)
             }
             
-            VStack{
-                Text("タスク1")
-                Text("2025/11/20")
+            List(0..<tasks.count, id: \.self) {index in
+                Button(action: {
+                    // タップでtrue/falseを反転察せる
+                    tasks[index].checked.toggle()
+                }) {
+                    HStack {
+                        if tasks[index].checked {
+                            Image(systemName: "checkmark.circle.fill")
+                        } else {
+                            Image(systemName: "circle")
+                        }
+                        Text(tasks[index].title)
+                        Spacer()
+                        Text(tasks[index].data)
+                    }
+                }
+                .foregroundColor(.blue)
             }
-            .buttonStyle()
-            Spacer()
         }
         .padding()
     }
